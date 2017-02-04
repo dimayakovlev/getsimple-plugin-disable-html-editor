@@ -34,7 +34,12 @@ function plugin_disable_html_editor($thisfile) {
     $HTMLEDITOR = '';
     $checked = ' checked';
   }
-  echo '<p class="inline clearfix"><input type="checkbox" name="post-noHTMLEditor" style="width: auto" value="1"'.$checked.'> <label for="post-noHTMLEditor">'.i18n_r($thisfile.'/LABEL').'</label></p>';
+  echo '<p id="'.$thisfile.'" class="inline clearfix"><input type="checkbox" name="post-noHTMLEditor" style="width: auto" value="1"'.$checked.'> <label for="post-noHTMLEditor">'.i18n_r($thisfile.'/LABEL').'</label></p>';  
+  add_action('footer', 'plugin_disable_html_js', array($thisfile));
+}
+
+function plugin_disable_html_js($id) {
+  echo '<script type="text/javascript">jQuery(document).ready(function() { $("#'.$id.'").insertAfter($("#metadata_window")); })</script>';
 }
 
 function plugin_disable_html_editor_save() {
